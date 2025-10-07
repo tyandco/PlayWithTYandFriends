@@ -6,30 +6,35 @@
 </head>
 <body>
 
-    <div class="character" aria-hidden="true">
-        <img class="character__layer character__layer--body" src="assets/TY/TY-body.png" alt="">
-        <img class="character__layer character__layer--eyes-open" src="assets/TY/TY-eyesopen.png" alt="">
-        <img class="character__layer character__layer--eyes-blink" src="assets/TY/TY-eyesblink.png" alt="">
-        <img class="character__layer character__layer--eyes-dizzy" src="assets/TY/TY-expression-dizzy.png" alt="">
-        <img class="character__layer character__layer--eyes-nose" src="assets/TY/TY-eyes-noseclicked.png" alt="">
-        <img class="character__layer character__layer--nose" src="assets/TY/TY-nose.png" alt="">
-        <img class="character__layer character__iris character__iris--l" src="assets/TY/TY-iris-l.png" alt="">
-        <img class="character__layer character__iris character__iris--r" src="assets/TY/TY-iris-r.png" alt="">
-        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-l" src="assets/TY/TY-dizzy-iris-l.png" alt="">
-        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-r" src="assets/TY/TY-dizzy-iris-r.png" alt="">
+    <div class="controls" role="group" aria-label="Character selection">
+        <label class="controls__label" for="character-select">Character</label>
+        <select id="character-select" class="controls__select" name="character"></select>
+    </div>
+
+    <div class="character" aria-hidden="true" data-character="ty">
+        <img class="character__layer character__layer--body" data-slot="body" src="assets/TY/TY-body.png" alt="">
+        <img class="character__layer character__layer--eyes-open" data-slot="eyes-open" src="assets/TY/TY-eyesopen.png" alt="">
+        <img class="character__layer character__layer--eyes-blink" data-slot="eyes-blink" src="assets/TY/TY-eyesblink.png" alt="">
+        <img class="character__layer character__layer--eyes-dizzy" data-slot="eyes-dizzy" src="assets/TY/TY-expression-dizzy.png" alt="">
+        <img class="character__layer character__layer--eyes-nose" data-slot="eyes-nose" src="assets/TY/TY-eyes-noseclicked.png" alt="">
+        <img class="character__layer character__layer--nose" data-slot="nose" src="assets/TY/TY-nose.png" alt="">
+        <img class="character__layer character__iris character__iris--l" data-slot="iris-left" src="assets/TY/TY-iris-l.png" alt="">
+        <img class="character__layer character__iris character__iris--r" data-slot="iris-right" src="assets/TY/TY-iris-r.png" alt="">
+        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-l" data-slot="iris-dizzy-left" src="assets/TY/TY-dizzy-iris-l.png" alt="">
+        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-r" data-slot="iris-dizzy-right" src="assets/TY/TY-dizzy-iris-r.png" alt="">
     </div>
 
     <div class="limbs" aria-hidden="true">
         <div class="limb limb--left">
             <div class="arm"></div>
             <div class="hand hand--left">
-                <img class="hand__img" src="assets/TY/TY-hand.png" alt="Left hand">
+                <img class="hand__img" data-slot="hand-left" src="assets/TY/TY-hand.png" alt="Left hand">
             </div>
         </div>
         <div class="limb limb--right">
             <div class="arm"></div>
             <div class="hand hand--right">
-                <img class="hand__img" src="assets/TY/TY-hand.png" alt="Right hand">
+                <img class="hand__img" data-slot="hand-right" src="assets/TY/TY-hand.png" alt="Right hand">
             </div>
         </div>
     </div>
