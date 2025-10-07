@@ -33,6 +33,25 @@
 
         const stopAnim = () => { if (anim) { cancelAnimationFrame(anim); anim = null; } };
 
+        const broadcastPointer = (e) => {
+          if (!e || typeof e.screenX !== 'number') return;
+          if (!window.opener || window.opener.closed) return;
+          try {
+            window.opener.postMessage(
+              {
+                type: 'eye-pointer',
+                screenX: e.screenX,
+                screenY: e.screenY,
+                offsetX: e.screenX - e.clientX,
+                offsetY: e.screenY - e.clientY,
+              },
+              '*'
+            );
+          } catch (_) {
+            /* ignore cross-origin errors */
+          }
+        };
+
         const snapBack = () => {
           stopAnim();
           let { x, y } = getPos();
@@ -65,9 +84,11 @@
           try { document.body.setPointerCapture(e.pointerId); } catch(_) {}
           document.body.style.cursor = 'grabbing';
           e.preventDefault();
+          broadcastPointer(e);
         });
 
         document.addEventListener('pointermove', (e) => {
+          broadcastPointer(e);
           if (!dragging) return;
           const dx = e.screenX - startScreenX;
           const dy = e.screenY - startScreenY;
@@ -80,6 +101,7 @@
           try { document.body.releasePointerCapture(e.pointerId); } catch(_) {}
           document.body.style.cursor = 'grab';
           snapBack();
+          broadcastPointer(e);
         };
         window.addEventListener('pointerup', endDrag);
         window.addEventListener('pointercancel', endDrag);

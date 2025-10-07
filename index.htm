@@ -5,10 +5,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to My Web Page</h1>
-    <p>This is a simple web page.</p>
-</body>
-<script src="script.js"></script>
-</html>
+
+    <div class="character" aria-hidden="true">
+        <img class="character__layer character__layer--body" src="assets/TY-body.png" alt="">
+        <img class="character__layer character__layer--eyes-open" src="assets/TY-eyesopen.png" alt="">
+        <img class="character__layer character__layer--eyes-blink" src="assets/TY-eyesblink.png" alt="">
+        <img class="character__layer character__layer--eyes-dizzy" src="assets/TY-expression-dizzy.png" alt="">
+        <img class="character__layer character__layer--eyes-nose" src="assets/TY-eyes-noseclicked.png" alt="">
+        <img class="character__layer character__layer--nose" src="assets/TY-nose.png" alt="">
+        <img class="character__layer character__iris character__iris--l" src="assets/TY-iris-l.png" alt="">
+        <img class="character__layer character__iris character__iris--r" src="assets/TY-iris-r.png" alt="">
+        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-l" src="assets/TY-dizzy-iris-l.png" alt="">
+        <img class="character__layer character__iris character__iris--dizzy character__iris--dizzy-r" src="assets/TY-dizzy-iris-r.png" alt="">
+    </div>
+
+    <div class="limbs" aria-hidden="true">
+        <div class="limb limb--left">
+            <div class="arm"></div>
+            <div class="hand hand--left">
+                <img class="hand__img" src="hand.png" alt="Left hand">
+            </div>
+        </div>
+        <div class="limb limb--right">
+            <div class="arm"></div>
+            <div class="hand hand--right">
+                <img class="hand__img" src="hand.png" alt="Right hand">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

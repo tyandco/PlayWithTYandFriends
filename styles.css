@@ -1,0 +1,202 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: radial-gradient(circle at center, #1c2635, #0a0f18 65%, #04070c);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  overflow: hidden;
+  padding: clamp(12px, 4vh, 48px) 1.25rem max(env(safe-area-inset-bottom), clamp(24px, 6vh, 96px));
+}
+
+.character {
+  position: relative;
+  width: min(100vw, 100vh * (2250 / 1688));
+  aspect-ratio: 2250 / 1688;
+  border-radius: clamp(32px, 4vw, 54px);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), inset 0 0 80px rgba(0, 0, 0, 0.35);
+  transform: translateZ(0);
+  cursor: pointer;
+}
+
+.character::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 18, 30, 0.55);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  mask-image: url('assets/TY-eyesopen.png');
+  mask-mode: alpha;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  mask-position: center;
+  -webkit-mask-image: url('assets/TY-eyesopen.png');
+  -webkit-mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  opacity: 0.45;
+}
+
+.character__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.character__layer--eyes-blink,
+.character__layer--eyes-dizzy {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.character__layer--eyes-blink {
+  z-index: 3;
+}
+
+.character__layer--eyes-dizzy {
+  z-index: 4;
+}
+
+.character__layer--eyes-blink.is-visible,
+.character__layer--eyes-dizzy.is-visible {
+  opacity: 1;
+}
+
+
+
+.character__iris--dizzy {
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: 50% 50%;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.character__iris--dizzy.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.character__layer--eyes-open.is-hidden,
+.character__iris.is-hidden {
+  visibility: hidden;
+}
+
+.character__layer--eyes-nose {
+  display: none;
+  z-index: 6;
+}
+
+.character__layer--eyes-nose.is-active {
+  display: block;
+}
+
+.character__layer--nose {
+  z-index: 4;
+}
+
+.character__iris {
+  --dx: 0px;
+  --dy: 0px;
+  transition: transform 45ms linear;
+  transform-origin: 50% 70%;
+  transform: translate(var(--dx), var(--dy)) rotate(var(--spin-angle, 0deg));
+  will-change: transform;
+  z-index: 6;
+}
+
+@property --spin-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root {
+  --hand-gap: clamp(200px, 32vw, 480px);
+  --hand-peek: -42px;
+  --hand-width: clamp(210px, 20vw, 340px);
+  --arm-thickness: clamp(42px, 7rem, 300px);
+  --arm-outline: clamp(5px, 1vw, 12px);
+}
+
+.limbs {
+  position: fixed;
+  left: 50%;
+  bottom: -10%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--hand-gap);
+  z-index: 12;
+}
+
+.limb {
+  position: relative;
+  width: var(--hand-width);
+  height: clamp(260px, 40vh, 420px);
+  pointer-events: none;
+}
+
+.arm {
+  --stretch: 1;
+  --angle: 0deg;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--arm-thickness);
+  height: 100%;
+  background: linear-gradient(180deg, #945f44, #ffcc9c);
+  outline: var(--arm-outline) solid #000;
+  outline-offset: calc(var(--arm-outline) * -0.55);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.28), 0 14px 28px rgba(0, 0, 0, 0.45);
+  transform-origin: bottom center;
+  transform: translateX(-50%) rotate(var(--angle)) scaleY(var(--stretch));
+  transition: none;
+}
+
+
+.hand {
+  --dx: 0px;
+  --dy: 0px;
+  position: absolute;
+  left: 50%;
+  bottom: var(--hand-peek);
+  width: 100%;
+  pointer-events: auto;
+  touch-action: none;
+  cursor: grab;
+  transform: translate3d(calc(-50% + var(--dx)), var(--dy), 0);
+  transition: none;
+}
+
+.hand.is-grabbing,
+body.is-dragging-hand {
+  cursor: grabbing;
+}
+
+.hand__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hand--right .hand__img {
+  transform: scaleX(-1);
+}
