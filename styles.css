@@ -128,7 +128,7 @@ body {
   --hand-gap: clamp(200px, 32vw, 480px);
   --hand-peek: -42px;
   --hand-width: clamp(210px, 20vw, 340px);
-  --arm-thickness: clamp(42px, 7rem, 300px);
+  --arm-thickness: clamp(42px, 10rem, 300px);
   --arm-outline: clamp(5px, 1vw, 12px);
 }
 
