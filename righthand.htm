@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Right Hand</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      html, body { background: transparent; margin: 0; overflow: hidden; }
+      body { background-color: transparent; }
+      h1 { background: transparent; margin: 8px; font: 600 14px/1.2 system-ui, sans-serif; color: #fff; }
+    </style>
+</head>
+<body>
+    <img src="hand.png" alt="Right Hand" style="width:100%;height:fit-content;">
+    <script>
+      (function() {
+        const params = new URLSearchParams(location.search);
+        const homeX = parseInt(params.get('homeX') || window.screenX, 10);
+        const homeY = parseInt(params.get('homeY') || window.screenY, 10);
+
+        const getWX = () => (typeof window.screenX === 'number' ? window.screenX : window.screenLeft || 0);
+        const getWY = () => (typeof window.screenY === 'number' ? window.screenY : window.screenTop || 0);
+
+        let anim = null;
+        let dragging = false;
+        let startWinX = 0, startWinY = 0;
+        let startScreenX = 0, startScreenY = 0;
+        let movingExternal = false;
+        let lastMoveTs = 0;
+
+        const spring = { k: 0.08, damping: 0.84 };
+
+        const getPos = () => ({ x: getWX(), y: getWY() });
+        const moveToPos = (x, y) => { try { window.moveTo(Math.round(x), Math.round(y)); } catch(_) {} };
+        // no in-window dragging; OS title bar only
+
+        const stopAnim = () => { if (anim) { cancelAnimationFrame(anim); anim = null; } };
+
+        const snapBack = () => {
+          stopAnim();
+          let { x, y } = getPos();
+          let vx = 0, vy = 0;
+          const step = () => {
+            const dx = homeX - x;
+            const dy = homeY - y;
+            vx = (vx + spring.k * dx) * spring.damping;
+            vy = (vy + spring.k * dy) * spring.damping;
+            x += vx; y += vy;
+            moveToPos(x, y);
+            if (Math.hypot(dx, dy) < 0.8 && Math.hypot(vx, vy) < 0.5) {
+              moveToPos(homeX, homeY);
+              anim = null; return;
+            }
+            anim = requestAnimationFrame(step);
+          };
+          anim = requestAnimationFrame(step);
+        };
+
+        // In-window dragging (anywhere inside the popup)
+        document.addEventListener('pointerdown', (e) => {
+          if (e.button !== 0) return;
+          dragging = true;
+          stopAnim();
+          startWinX = getWX();
+          startWinY = getWY();
+          startScreenX = e.screenX;
+          startScreenY = e.screenY;
+          try { document.body.setPointerCapture(e.pointerId); } catch(_) {}
+          document.body.style.cursor = 'grabbing';
+          e.preventDefault();
+        });
+
+        document.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          const dx = e.screenX - startScreenX;
+          const dy = e.screenY - startScreenY;
+          moveToPos(startWinX + dx, startWinY + dy);
+        });
+
+        const endDrag = (e) => {
+          if (!dragging) return;
+          dragging = false;
+          try { document.body.releasePointerCapture(e.pointerId); } catch(_) {}
+          document.body.style.cursor = 'grab';
+          snapBack();
+        };
+        window.addEventListener('pointerup', endDrag);
+        window.addEventListener('pointercancel', endDrag);
+
+        // Detect OS title-bar moves and snap back quickly after release
+        (function watchExternalMove(){
+          let prev = getPos();
+          const settleMs = 80; // minimal delay to avoid mid-drag snap
+          const loop = () => {
+            const now = performance.now();
+            const cur = getPos();
+            const moved = cur.x !== prev.x || cur.y !== prev.y;
+            if (!anim && !dragging) {
+              if (moved) {
+                movingExternal = true;
+                lastMoveTs = now;
+              } else if (movingExternal && (now - lastMoveTs) >= settleMs) {
+                movingExternal = false;
+                snapBack();
+              }
+            }
+            prev = cur;
+            requestAnimationFrame(loop);
+          };
+          requestAnimationFrame(loop);
+        })();
+
+        // Initial cursor and selection behavior
+        document.body.style.userSelect = 'none';
+        document.body.style.cursor = 'grab';
+      })();
+    </script>
+</body>
+</html>
