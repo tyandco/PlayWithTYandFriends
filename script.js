@@ -81,6 +81,31 @@ onload = function () {
         'hand-right': 'assets/Buddy/BUDDY-hand.png',
       },
     },
+    apytrue: {
+      id: 'apytrue',
+      name: 'Apytrue -COLLAB-',
+      pageTitle: 'Playing With Apytrue',
+      faceMask: 'assets/blank.png',
+      armColors: {
+        top: '#945f44',
+        bottom: '#ffcc9c',
+        outline: '#000000',
+      },
+      slots: {
+        body: 'assets/Apytrue/APYTRUE-body.png',
+        'eyes-open': 'assets/Apytrue/APYTRUE-eyes-open.png',
+        'eyes-blink': 'assets/Apytrue/APYTRUE-eyes-blink.png',
+        'eyes-dizzy': 'assets/Apytrue/APYTRUE-expression-dizzy.png',
+        'eyes-nose': 'assets/Apytrue/APYTRUE-eyes-noseclick.png',
+        nose: 'assets/Apytrue/APYTRUE-nose.png',
+        'iris-left': 'assets/Apytrue/APYTRUE-iris-l.png',
+        'iris-right': 'assets/Apytrue/APYTRUE-iris-r.png',
+        'iris-dizzy-left': 'assets/Apytrue/APYTRUE-eyes-noseclick.png',
+        'iris-dizzy-right': 'assets/blank.png',
+        'hand-left': 'assets/Apytrue/APYTRUE-hand.png',
+        'hand-right': 'assets/Apytrue/APYTRUE-hand.png',
+      },
+    },
   };
 
   const characterElement = document.querySelector('.character');
