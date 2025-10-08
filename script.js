@@ -56,6 +56,31 @@ onload = function () {
         'hand-right': 'assets/Buddy/BUDDY-hand.png',
       },
     },
+    scribbles: {
+      id: 'scribbles',
+      name: 'Scribbles',
+      pageTitle: 'Playing With Scribbles',
+      faceMask: 'assets/blank.png',
+      armColors: {
+        top: '#bdbdbdff',
+        bottom: '#f4f4f4ff',
+        outline: '#000000ff',
+      },
+      slots: {
+        body: 'assets/Scribbles/SCRIBBLES-body.png',
+        'eyes-open': 'assets/blank.png',
+        'eyes-blink': 'assets/Scribbles/SCRIBBLES-eyes-blink.png',
+        'eyes-dizzy': 'assets/Scribbles/SCRIBBLES-expression-dizzy.png',
+        'eyes-nose': 'assets/Scribbles/SCRIBBLES-eyes-noseclick.png',
+        nose: 'assets/blank.png',
+        'iris-left': 'assets/Scribbles/SCRIBBLES-iris-l.png',
+        'iris-right': 'assets/Scribbles/SCRIBBLES-iris-r.png',
+        'iris-dizzy-left': 'assets/Scribbles/SCRIBBLES-dizzy-iris-l.png',
+        'iris-dizzy-right': 'assets/Scribbles/SCRIBBLES-dizzy-iris-r.png',
+        'hand-left': 'assets/Buddy/BUDDY-hand.png',
+        'hand-right': 'assets/Buddy/BUDDY-hand.png',
+      },
+    },
   };
 
   const characterElement = document.querySelector('.character');
