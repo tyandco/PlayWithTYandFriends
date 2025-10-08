@@ -15,6 +15,43 @@ body {
   padding: clamp(12px, 4vh, 48px) 1.25rem max(env(safe-area-inset-bottom), clamp(24px, 6vh, 96px));
 }
 
+/* Top-left action buttons */
+.site-actions {
+  position: fixed;
+  top: clamp(16px, 6vh, 48px);
+  left: clamp(16px, 6vw, 72px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  background: rgba(10, 16, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  color: #f0f4ff;
+  font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+  z-index: 40;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.site-actions__btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(28, 40, 66, 0.6);
+  color: inherit;
+  font: inherit;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.site-actions__btn:focus-visible {
+  outline: 2px solid rgba(125, 180, 255, 0.65);
+  outline-offset: 2px;
+}
+
 .character {
   position: relative;
   width: min(100vw, 100vh * (2250 / 1688));

@@ -4,7 +4,12 @@
     <title>Playing With (char-name)</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-github-url="https://github.com/tyandco/PlayWithTYandFriends/">
+
+    <div class="site-actions" role="group" aria-label="Site actions">
+        <button id="mute-toggle" class="site-actions__btn" type="button" aria-pressed="false" title="Mute background music">Mute</button>
+        <a id="open-github" class="site-actions__btn" href="https://github.com/tyandco/PlayWithTYandFriends" target="_blank" rel="noopener" title="Open GitHub repository">Open GitHub</a>
+    </div>
 
     <div class="controls" role="group" aria-label="Character selection">
         <label class="controls__label" for="character-select">Character</label>
@@ -39,6 +44,17 @@
         </div>
     </div>
 
+    <!-- Background music: loops and attempts autoplay -->
+    <audio id="bg-music"
+           src="assets/PlayWithTYandFriendsBGMUS.wav"
+           loop
+           preload="auto"
+           autoplay
+           playsinline
+           aria-hidden="true"
+           style="display:none"></audio>
+
     <script src="script.js"></script>
+    <script src="bgm.js"></script>
 </body>
 </html>
